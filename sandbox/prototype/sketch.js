@@ -54,7 +54,7 @@ function setup() {
   // poseNet.on('pose', function(results) {
   //   poses = results;
   // });
-
+  segment();
 }
 
 function segment(){
