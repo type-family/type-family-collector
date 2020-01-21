@@ -7,7 +7,17 @@ const $mainCanvas = document.querySelector('#mainCanvas');
 
 let video;
 let canvas;
+let bodyPix;
+let flippedVideo;
+
+function preload(){
+  bodyPix = ml5.bodyPix();
+}
+
+
 function setup() {
+  
+
   canvas = createCanvas($mainCanvas.clientWidth, $mainCanvas.clientHeight).parent(
     'mainCanvas'
   );
@@ -33,18 +43,33 @@ function setup() {
     loop();
   })
 
+  segment()
+
 }
 
-function draw() {
+function segment(){
+  flippedVideo = ml5.flipImage(video);
+  bodyPix.segment(flippedVideo, gotResults)
+}
+
+function gotResults(err, results){
+  if(err){
+    console.log(err);
+    return
+  }
   background(200, 200, 200);
-  // video
+
+
   push();
   translate( ($mainCanvas.clientWidth - 640)/2, ($mainCanvas.clientHeight - 480)/2 )
-  image(video, 0,0, 640, 480)
+
+  // flippedVideo = ml5.flipImage(video);
+  image(results.backgroundMask, 0,0, 640, 480)
   pop();
 
   // red square
   push()
+  
   // const padX = (640-400)/2;
   // const padY = (480-400)/2;
   rectMode(CENTER)
@@ -55,7 +80,14 @@ function draw() {
   noFill();
   rect(0,0, 400, 400);
   pop()
+
+
+  segment();
 }
+
+// function draw() {
+  
+// }
 
 
 function triggerCountDown(){
@@ -95,6 +127,9 @@ async function triggerSave(){
 
   let results = await fetch("https://jsonplaceholder.typicode.com/photos", options)
   results = await results.json()
-
-  alert(JSON.stringify(results));
+  console.log(results);
+  // alert(JSON.stringify(results));
+  saveFrames('type_family_test', 'png', 1, 15, (data) => {
+    console.log(data)
+  });
 }
