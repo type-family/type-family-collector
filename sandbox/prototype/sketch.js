@@ -36,7 +36,7 @@ function setup() {
 }
 
 function draw() {
-  background(250, 250, 250);
+  background(200, 200, 200);
   // video
   push();
   translate( ($mainCanvas.clientWidth - 640)/2, ($mainCanvas.clientHeight - 480)/2 )
@@ -60,13 +60,14 @@ function draw() {
 
 function triggerCountDown(){
   loop();
-  let counter = 3;
+  let counter = 7;
   const myInterval = setInterval( () => {
 
     if(counter < 1){
       clearInterval(myInterval)
       $controlsText.textContent = `Countdown: `
       noLoop();
+      triggerSave();
     }
 
     $controlsText.textContent = `Countdown: ${counter}`
@@ -76,4 +77,24 @@ function triggerCountDown(){
     counter--;
   }, 1000);
 
+}
+
+async function triggerSave(){
+  const letterData = {
+    letter: "",
+    url: "",
+    data: []
+  }
+  const options = {
+    method: "POST",
+    header: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(letterData)
+  }
+
+  let results = await fetch("https://jsonplaceholder.typicode.com/photos", options)
+  results = await results.json()
+
+  alert(JSON.stringify(results));
 }
