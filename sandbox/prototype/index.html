@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+    <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+    <title>DEMO</title>
+
+    <link rel="stylesheet" href="main.css" />
+    <link rel="icon" href="images/favicon.png" />
+  </head>
+
+  <body>
+    <div id="app">
+      <nav class="nav"></nav>
+      <header class="header">
+        <h1 class="header__title">
+          Let's Make Some Letters
+        </h1>
+      </header>
+      <main class="main">
+        <div class="main-canvas" id="mainCanvas"></div>
+        <div class="main-controls">
+          <h2 class="main-controls__text">Countdown:</h2>
+          <button class="main-controls__button main-controls__button--A">A</button>
+          <button class="main-controls__button main-controls__button--B">B</button>
+          <button class="main-controls__button main-controls__button--C">C</button>
+        </div>
+      </main>
+    </div>
+    <script src="sketch.js"></script>
+  </body>
+</html>
